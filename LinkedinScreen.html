@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Proyecto DVD-Copy</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      canvas {
+        background: #2a2a2a;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="LinkedinScreen"></canvas>
+    <script>
+      const canvas = document.getElementById("LinkedinScreen");
+      const ctx = canvas.getContext("2d");
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      resizeCanvas();
+      window.addEventListener("resize", resizeCanvas);
+
+      let x = canvas.width/2;
+      let y = canvas.height/2;
+      let dx = 2;
+      let dy = -2;
+      const iconSize = 100;
+    
+      const textMargin = 40;
+      let iconColor = generateRandomColor();
+
+      function generateRandomColor() {
+        const r = Math.floor(Math.random() * 256);
+        const g = Math.floor(Math.random() * 256);
+        const b = Math.floor(Math.random() * 256);
+        return `rgb(${r},${g},${b})`;
+      }
+
+      const linkedinLogo = new Image();
+      linkedinLogo.src = "./images/linkedin.png"
+      
+      function drawIcon() {
+        ctx.fillStyle = iconColor;
+        ctx.fillRect(x + 10, y + 1, 85, 90);
+        ctx.drawImage(linkedinLogo, x, y, iconSize, iconSize);
+
+        ctx.font = "bold 40px Arial";
+        ctx.fillStyle = iconColor;
+        ctx.textAlign = "center";
+        ctx.fillText("DAVID CANDIL", x + iconSize / 2, y + 10 + iconSize + textMargin);
+      }
+      
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawIcon();
+        
+        if(x + dx > canvas.width-iconSize || x + dx < 0) {
+            dx = -dx;
+            iconColor = generateRandomColor();
+        }
+        if(y + dy > canvas.height-iconSize - textMargin || y + dy < 0) {
+            dy = -dy;
+            iconColor = generateRandomColor();
+        }
+        
+        x += dx;
+        y += dy;
+    }
+
+      setInterval(draw, 10);
+    </script>
+  </body>
+</html>
