@@ -54,18 +54,19 @@
 
         ctx.font = "bold 40px Arial";
         ctx.textAlign = "center";
-        ctx.fillText("DAVID CANDIL", x + iconSize / 2, y + 10 + iconSize + textMargin);
+        ctx.fillText("DAVID CANDIL", x + iconSize / 2, y + 10 + iconSize +
+                     textMargin);
       }
       
       function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         drawIcon();
         
-        if(x + dx > canvas.width-iconSize || x + dx < 0) {
+        if(x + dx > canvas.width - iconSize || x + dx < 0) {
             dx = -dx;
             iconColor = generateRandomColor();
         }
-        if(y + dy > canvas.height-iconSize - textMargin || y + dy < 0) {
+        if(y + dy > canvas.height - iconSize - textMargin || y + dy < 0) {
             dy = -dy;
             iconColor = generateRandomColor();
         }
